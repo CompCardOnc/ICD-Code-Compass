@@ -1,7 +1,8 @@
 from pathlib import Path
 import pandas as pd
+import pytest
 
-from icd_code_compass.utils import read, normalize_icd
+from icd_code_compass.utils import read, normalize_icd, resolve
 
 def test_read_csv_with_header(tmp_path: Path):
     p = tmp_path / "data.csv"
@@ -42,7 +43,6 @@ def test_read_excel_no_header(tmp_path: Path):
     p = tmp_path / "data.xlsx"
     pd.DataFrame([["1", "3"], ["2", "4"]]).to_excel(p, index=False, header=False)
     df = read(str(p), no_header=True)
-    print(df)
     assert df.loc[0, 0] == "1"
     assert df.loc[0, 1] == "3"
     assert df.loc[1, 0] == "2"
@@ -56,3 +56,29 @@ def test_normalize_icd():
     assert normalize_icd("a10.2") == "A102"
     assert normalize_icd(" C34,1 ") == "C341"
     assert normalize_icd(" 123.4 ") == "1234"
+
+
+def test_resolve_by_valid_index():
+    df = pd.DataFrame(columns=["alpha", "beta", "gamma"])
+    assert resolve(df, 0) == "alpha"
+    assert resolve(df, 2) == "gamma"
+
+
+def test_resolve_by_valid_name():
+    df = pd.DataFrame(columns=["alpha", "beta"])
+    assert resolve(df, "alpha") == "alpha"
+    assert resolve(df, " beta ") == "beta"
+
+
+def test_resolve_invalid_index_or_name():
+    df = pd.DataFrame(columns=["a", "b"])
+    with pytest.raises(KeyError):
+        resolve(df, "c")
+    with pytest.raises(KeyError):
+        resolve(df, None)
+    with pytest.raises(KeyError):
+        resolve(df, "")
+    with pytest.raises(ValueError):
+        resolve(df, -1)
+    with pytest.raises(ValueError):
+        resolve(df, 2)
