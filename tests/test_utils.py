@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from icd_code_compass.utils import read, normalize_icd, resolve
+from icd_code_compass.utils import *
 
 def test_read_csv_with_header(tmp_path: Path):
     p = tmp_path / "data.csv"
@@ -82,3 +82,27 @@ def test_resolve_invalid_index_or_name():
         resolve(df, -1)
     with pytest.raises(ValueError):
         resolve(df, 2)
+
+
+def test_sub_applies_replacements():
+    df = pd.DataFrame({"code": ["A,10", "10.B"]})
+    rules = [
+        {"pattern": r"([0-9]+)\.([A-Z]+)", "replace": r"\2\1"},
+        {"pattern": r",", "replace": ""}
+    ]
+    result = sub(df, "code", rules)
+    assert result["code"].tolist() == ["A10", "B10"]
+
+
+def test_sub_applies_empty_replacements():
+    df = pd.DataFrame({"code": ["A10", "B10"]})
+    rules = []
+    result = sub(df, "code", rules)
+    assert result["code"].tolist() == ["A10", "B10"]
+
+
+def test_sub_invalid_name():
+    df = pd.DataFrame({})
+    rules = [ ]
+    with pytest.raises(KeyError):
+        sub(df, "code", rules)
