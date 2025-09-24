@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <title>ICD CodeCompass</title>
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="tabulator/css/tabulator_simple.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+
+  <meta name="description" content="ICD CodeCompass: explore and export mapping tables." />
+  <meta property="og:title" content="ICDCodeCompass" />
+  <meta property="og:description" content="Explore and export ICD mapping tables (CSV, JSON, XLSX)." />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+
+<body class="bg-light">
+  <!-- Navbar -->
+  <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm"
+    style="--bs-bg-opacity:1;">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-grid-3x3-gap-fill"></i>
+        <span class="fw-semibold">ICD CodeCompass</span>
+      </a>
+  
+      <nav id="topnav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item me-lg-2">
+            <button class="btn btn-sm btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#citeModal">
+              <i class="bi bi-journal-text"></i> Cite
+            </button>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-sm btn-outline-dark d-flex align-items-center gap-2"
+              href="https://github.com/CompCardOnc/ICD-Code-Compass" target="_blank" rel="noopener">
+              <i class="bi bi-github"></i> GitHub
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    <div class="card shadow-sm">
+      <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h2 class="h5 mb-0 flex-grow-1"><i class="bi bi-table"></i> Mapping Table</h2>
+
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="language-dropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            English (EN)
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown" id="language-menu">
+            <!-- populated by script.js -->
+          </ul>
+        </div>
+
+        <!-- Download toolbar -->
+        <div class="btn-toolbar" role="toolbar" aria-label="Export toolbar">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Download group">
+            <button class="btn btn-outline-primary" id="download-csv" type="button">CSV</button>
+            <button class="btn btn-outline-primary" id="download-json" type="button">JSON</button>
+            <button class="btn btn-outline-primary" id="download-xlsx" type="button">XLSX</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Tabulator table -->
+        <div id="mapping-table"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-3 mt-4">
+    <div class="container text-center">
+      <small>&copy; 2025 ICD CodeCompass</small>
+      <p class="small mb-2">
+        <strong>Disclaimer:</strong> This tool provides automatically generated mappings and text descriptions based on existing sources. No guarantees are given regarding completeness or accuracy. It is intended for research purposes only
+        and must not be used as medical advice or guidance for clinical decision making.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Cite Modal -->
+  <div class="modal fade" id="citeModal" tabindex="-1" aria-labelledby="citeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeModalLabel">Cite this project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Tabs -->
+          <ul class="nav nav-tabs mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#cite-text" type="button"
+                role="tab">Text</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#cite-bibtex" type="button"
+                role="tab">BibTeX</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#cite-ris" type="button"
+                role="tab">RIS</button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="cite-text" role="tabpanel">
+              <pre class="p-3 bg-light border rounded small" style="white-space: pre-wrap;" id="cite-text-pre">
+Keskisärkkä, R., Hubbert, L., & Singull, M. (2026). Systematic Mapping of ICD Codes for Epidemiological Studies. JOURNAL, VOLUME(ISSUE), PAGES. DOI
+              </pre>
+            </div>
+
+            <div class="tab-pane fade" id="cite-bibtex" role="tabpanel">
+              <pre class="p-3 bg-light border rounded small" id="cite-bibtex-pre">
+@article{Keskisarkka2026ICDMapping,
+  title   = {{Systematic Mapping of ICD Codes for Epidemiological Studies}},
+  author  = {Keskisärkkä, Robin and Hubbert, Laila and Singull, Martin},
+  journal = {},
+  year    = {2026},
+  volume  = {},
+  number  = {},
+  pages   = {},
+  doi     = {}
+}
+              </pre>
+            </div>
+
+            <div class="tab-pane fade" id="cite-ris" role="tabpanel">
+              <pre class="p-3 bg-light border rounded small" id="cite-ris-pre">
+TY  - JOUR
+AU  - Keskisärkkä, Robin
+AU  - Hubbert, Laila
+AU  - Singull, Martin
+PY  - 2026
+TI  - Systematic Mapping of ICD Codes for Epidemiological Studies
+JO  -
+VL  -
+IS  -
+SP  -
+EP  -
+DO  -
+ER  - 
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <span class="text-muted me-auto small" id="cite-status" aria-live="polite"></span>
+          <button class="btn btn-primary btn-sm" id="cite-copy-btn" type="button">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('cite-copy-btn')?.addEventListener('click', async () => {
+      const activePane = document.querySelector('#citeModal .tab-pane.active.show');
+      const text = activePane?.querySelector('pre')?.textContent.trim() || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        const status = document.getElementById('cite-status');
+        if (status) {
+          status.textContent = 'Copied!';
+          setTimeout(() => { status.textContent = ''; }, 1500);
+        }
+      } catch {
+        alert('Copy failed. Please select and copy manually.');
+      }
+    });
+  </script>
+
+  <!-- Tabulator -->
+  <script src="tabulator/js/tabulator.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Citation -->
+   <script src="https://cdn.jsdelivr.net/npm/citation-js@0.6.9/build/citation.min.js"></script>
+  <!-- App script -->
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>
