@@ -1,6 +1,6 @@
 # ICD-Code-Compass
 
-> A tool for exploring and creating ICD mappings codes.
+> A tool for exploring, creating, and publishing ICD mapping files.
 
 <div align="center">
 
