@@ -1,0 +1,40 @@
+labels:
+  - source: "SOS_ICD9-SE"
+    icd: "ICD-9"
+    lang: "sv"
+    code_column: "KOD"
+    replacements:
+      - pattern: 'A$'
+        replace: '0'
+      - pattern: 'B$'
+        replace: '1'
+      - pattern: 'C$'
+        replace: '2'
+      - pattern: 'D$'
+        replace: '3'
+      - pattern: 'E$'
+        replace: '4'
+      - pattern: 'F$'
+        replace: '5'
+      - pattern: 'G$'
+        replace: '6'
+      - pattern: 'H$'
+        replace: '7'
+      - pattern: 'W$'
+        replace: '8'
+      - pattern: 'X$'
+        replace: '9'
+    label_column: "KODTEXT"
+
+sources:
+  SOS_ICD9-SE:
+    title: "Socialstyrelsen ICD-9-SE"
+    publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
+    path: "data/icd-9-se.xls"
+    reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/icd-9-klassifikation-av-sjukdomar-1987-ks87.xls"
+    doi: ""
+    version: ""
+    retrieved_at: "2025-09-23"
+    license: "Unknown"
+    notes: >
+      Official Swedish classification ICD-9-SE. The original version of ICD-9-SE used letters instead of digits after the decimal point (A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, W=8, X=9).
