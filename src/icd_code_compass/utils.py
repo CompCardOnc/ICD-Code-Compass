@@ -36,10 +36,10 @@ def normalize_icd(code: Optional[str]) -> Optional[str]:
 
 
 def read(path: str,
-         no_header: bool,
-         delimiter: str,
-         sheet: Union[int, str],
-         encoding: str) -> pd.DataFrame:
+         sheet: Union[int, str] = 0,
+         no_header: bool = False,
+         delimiter: str= None,
+         encoding: str = "utf-8") -> pd.DataFrame:
     """
     Read a CSV or Excel file into a pandas DataFrame with all values as strings.
 
@@ -73,7 +73,7 @@ def read(path: str,
     if ext in {".xlsx", ".xls"}:
         df = pd.read_excel(path, sheet_name=sheet, dtype=str, header=header_arg)
     else:
-        df = pd.read_csv(path, sep=delimiter, dtype=str, encoding=encoding, header=header_arg)
+        df = pd.read_csv(path, sep=delimiter, dtype=str, encoding=encoding, header=header_arg, engine="python")
 
     # Normalize column names only if we actually read a header row
     if not no_header:
