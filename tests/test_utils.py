@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import pytest
+import yaml
 
 from icd_code_compass.utils import *
 
@@ -106,3 +107,34 @@ def test_sub_invalid_name():
     rules = [ ]
     with pytest.raises(KeyError):
         sub(df, "code", rules)
+
+
+def test_load_yaml_valid(tmp_path: Path):
+    path = tmp_path / "config.yaml"
+    path.write_text("a: 1\nb: test\n", encoding="utf-8")
+
+    data = load_yaml(str(path))
+    assert data == {"a": 1, "b": "test"}
+
+
+def test_load_yaml_empty_returns_dict(tmp_path: Path):
+    path = tmp_path / "empty.yaml"
+    path.write_text("", encoding="utf-8")
+
+    data = load_yaml(str(path))
+    assert data == {}
+
+
+def test_load_yaml_file_not_found(tmp_path: Path):
+    path = tmp_path / "missing.yaml"
+    with pytest.raises(FileNotFoundError):
+        load_yaml(str(path))
+
+
+def test_load_yaml_invalid_yaml(tmp_path: Path):
+    path = tmp_path / "broken.yaml"
+    # Invalid YAML: key without value
+    path.write_text("a: 1\nb:\n  - c: 2\n  - d\n  : e", encoding="utf-8")
+
+    with pytest.raises(yaml.YAMLError):
+        load_yaml(str(path))
