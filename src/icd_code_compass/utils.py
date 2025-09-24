@@ -30,6 +30,10 @@ def normalize_icd(code: Optional[str]) -> Optional[str]:
         return None
     
     code = code.strip()
+
+    if code == "":
+        return None
+
     code = re.sub(r"[,\.]", "", code)
     code = code.upper()
     return code
