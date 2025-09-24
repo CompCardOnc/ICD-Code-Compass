@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-from icd_code_compass.utils import read
+from icd_code_compass.utils import read, normalize_icd
 
 def test_read_csv_with_header(tmp_path: Path):
     p = tmp_path / "data.csv"
@@ -47,3 +47,12 @@ def test_read_excel_no_header(tmp_path: Path):
     assert df.loc[0, 1] == "3"
     assert df.loc[1, 0] == "2"
     assert df.loc[1, 1] == "4"
+
+
+def test_normalize_icd():
+    assert normalize_icd(None) is None
+    assert normalize_icd("") is None
+    assert normalize_icd("   ") is None
+    assert normalize_icd("a10.2") == "A102"
+    assert normalize_icd(" C34,1 ") == "C341"
+    assert normalize_icd(" 123.4 ") == "1234"
