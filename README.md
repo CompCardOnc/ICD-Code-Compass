@@ -14,22 +14,36 @@
 
 ## ✨ What is this?
 
-**ICD-Code-Compass** is a Python toolkit and service for working with ICD codes (lookup, mapping, and validation).
+**ICD-Code-Compass** is a Python toolkit and service for working with ICD codes (lookup, mapping, and publishing).
 
-The service allows user to explore, filter, and export ICD mapping files intended for the use in registry-based research.
+The service allows user to explore, filter, and export ICD mapping files intended for use in registry-based research, with the objective of speeding up and increasing the reproducability and transparency of registry-based studies.
 
 Try out the service now: [ICD-Code-Compass](https://compcardonc.github.io/ICD-Code-Compass/)
 
-> MIT-licensed. Made for research & production pipelines.
+---
+
+## 🤝 Contributing
+Contributing to the project is easy. Simply open up an [issue](https://github.com/CompCardOnc/ICD-Code-Compass/issues) to:
+- Report bugs
+- Request new features
+- Request the addition of new files to provide additional mappings or labels
 
 ---
 
-## 📦 Features (at a glance)
+## 🗂️ Project layout
 
-- **Lookup & search:** query or filter existing ICD mappings.
-- **Mappings:** assemble and download mapping files to translate across ICD versions.
-- **Reproducablity:** upload new mapping files from studies to increase reproducability and transparency in registry-based studies.
-
+```
+ICD-Code-Compass/
+├─ src/icd_code_compass/      # package code (public API lives here)
+├─ tests/                     # pytest suite
+├─ scripts/                   # runnable scripts
+├─ data/                      # reference data
+├─ config/                    # configuration files
+├─ docs/                      # website
+├─ requirements.txt
+├─ pytest.ini
+└─ LICENSE (MIT)
+```
 ---
 
 ## Installation
@@ -58,32 +72,6 @@ To generate a new labels file, run:
 ```bash
 python3 scripts/generate-labels.sh
 ```
-
----
-
-## 🗂️ Project layout
-
-```
-ICD-Code-Compass/
-├─ src/icd_code_compass/      # package code (public API lives here)
-├─ tests/                     # pytest suite
-├─ scripts/                   # runnable scripts
-├─ data/                      # reference data
-├─ config/                    # configuration files
-├─ docs/                      # website
-├─ requirements.txt
-├─ pytest.ini
-└─ LICENSE (MIT)
-```
-
----
-
-## 🤝 Contributing
-
-Issues and PRs are welcome! Opening an [issue](https://github.com/CompCardOnc/ICD-Code-Compass/issues) to:
-- Report bugs
-- Propose new features
-- Request addition of new mappings or labels
 
 ---
 
