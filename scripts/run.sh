@@ -2,4 +2,4 @@
 export PYTHONPATH="src:$PYTHONPATH"
 python src/icd_code_compass/mappings.py \
     --config config/mappings.yml \
-    --output mappings.json
+    --output docs/mappings.json
