@@ -78,6 +78,9 @@ def read_labels(path: str,
     # Drop missing labels
     df = df[df["label"].notna()]
     
+     # Trim label
+    df["label"] = df["label"].apply(lambda x: x.strip())
+    
     return df[["code", "label"]]
 
 
@@ -146,7 +149,7 @@ def main():
 
     # write to file
     with Path(args.output).open("w", encoding="utf-8") as f:
-        f.write(json.dumps(data, ensure_ascii=False, indent=2))
+        f.write(json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True))
 
 def tree():
     return defaultdict(tree)

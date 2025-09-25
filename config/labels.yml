@@ -47,6 +47,12 @@ labels:
     code_column: 2
     label_column: 4
 
+  - source: "EJE_ICD8-ICD10"
+    icd: "ICD-8"
+    lang: "la"
+    code_column: "ICD8_CODE"
+    label_column: "ICD8_TEXT"
+
 sources:
   SOS_ICD10-SE:
     title: "Socialstyrelsen ICD-10-SE"
@@ -92,3 +98,13 @@ sources:
     retrieved_at: "2025-09-23"
     license: "CC0: Public Domain"
     notes: "ICD10 codes and descriptions"
+
+  EJE_ICD8-ICD10:
+    title: "A unidirectional mapping of ICD-8-DK to ICD-10-DK codes (provides labels for ICD-8 codes in Latin)"
+    publisher: "Pedersen, M.K., Eriksson, R., Reguant, R. et al. A unidirectional mapping of ICD-8 to ICD-10 codes, for harmonized longitudinal analysis of diseases. Eur J Epidemiol 38, 1043–1052 (2023). https://doi.org/10.1007/s10654-023-01027-y"
+    path: "data/EJE_ICD8-ICD10.txt"
+    reference: "https://static-content.springer.com/esm/art%3A10.1007%2Fs10654-023-01027-y/MediaObjects/10654_2023_1027_MOESM1_ESM.txt"
+    version: "2023-09-09"
+    retrieved_at: "2025-09-25"
+    license: "Creative Commons Attribution 4.0 International License"
+    notes: "Mapping scores: 1 (a straightforward match, 2 (a good match), 3 (an acceptable match), and 5 (the best possible match, poor quality match). Difficult matches flagged with one or more of seven flags (A-G) highlighting the mapping problem."
