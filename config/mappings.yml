@@ -9,6 +9,7 @@ mappings:
       - R
       - R1
       - R2
+
   - source: "EJE_ICD8-ICD10"
     from_icd: "ICD-8"
     from_column: "ICD8_CODE"
@@ -22,13 +23,12 @@ sources:
   SOS_ICD9-ICD10:
     title: "Socialstyrelsen ICD-9 to ICD-10 conversion table"
     publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
-    path: "data/icd9-to-icd10-se.xls"
+    path: "data/SOS_ICD9-ICD10.xls"
     reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/konverteringstabell-icd9-icd10-forklaring-exempel.xls"
     retrieved_at: "2025-09-23"
     license: "Unknown"
     notes: >
       Official Swedish crosswalk; fields R/R1/R2 are mapping ratings.
-
       The value R indicates how codes on the left and right side of the table correspond, normally starting from the left-hand column. If R = 1, the two codes are fully equivalent. If R = 2, the ICD-10 code in column A is more detailed than the ICD-9 code in column B, meaning several ICD-10 codes may be needed to match a single ICD-9 code. If R = 3, the situation is reversed: the ICD-10 code is less detailed, and several ICD-9 codes may be required to represent the same content. When R = 4, the relationship is more complex: neither system has unique one-to-one matches, and one code from either side can correspond to several codes on the other side. If R = 5, there is no correspondence at all. In addition, R1 specifies how many codes from ICD-9 are needed to match a code in ICD-10, while R2 specifies how many codes from ICD-10 are required to match a code in ICD-9.
     
   EJE_ICD8-ICD10:
