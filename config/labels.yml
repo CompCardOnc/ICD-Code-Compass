@@ -48,12 +48,12 @@ labels:
     code_column: "Kod"
     label_column: "Text"
 
-  - source: "KAGGLE_ICD10-CM"
+  - source: "CDC_ICD10-CM"
     icd: "ICD-10"
     lang: "en"
-    delimiter: ","
-    code_column: 2
-    label_column: 4
+    delimiter: "\t"
+    code_column: 0
+    label_column: 1
 
   - source: "EJE_ICD8-ICD10"
     icd: "ICD-8"
@@ -96,16 +96,17 @@ sources:
     license: "Unknown"
     notes: "Official Swedish classification ICD-8-SE."
 
-  KAGGLE_ICD10-CM:
-    title: "Kaggle ICD-10-CM"
-    publisher: "https://www.kaggle.com/"
-    path: "data/KAGGLE_ICD10-CM.csv"
-    reference: "https://www.kaggle.com/datasets/arashnic/icd10-codes-and-descriptions"
+  CDC_ICD10-CM:
+    title: "English labels for ICD-10-CM"
+    publisher: "https://cdc.gov/"
+    reference: "https://ftp.cdc.gov/pub/health_statistics/nchs/publications/ICD10CM/2018/2018-ICD-10-CM-Codes-File.zip (icd10cm_codes_2018.txt)"
+    path: "data/CDC_ICD10-CM.txt"
     doi: ""
-    version: "2024-01-21"
-    retrieved_at: "2025-09-23"
-    license: "CC0: Public Domain"
-    notes: "ICD10 codes and descriptions"
+    version: "2018"
+    retrieved_at: "2025-09-25"
+    license: "Public domain"
+    language: "English"
+    notes: "Provides English ICD labels for ICD-10-CM."
 
   EJE_ICD8-ICD10:
     title: "A unidirectional mapping of ICD-8-DK to ICD-10-DK codes (provides labels for ICD-8 codes in Latin)"
