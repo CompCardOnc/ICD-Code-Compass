@@ -7,6 +7,14 @@ labels:
     code_column: "Kod"
     label_column: "Titel"
 
+  - source: "SOS_ICD10-SE"
+    icd: "ICD-10"
+    lang: "la"
+    delimiter: "\t"
+    filter: "^[A-Z]"
+    code_column: "Kod"
+    label_column: "Latin"
+
   - source: "SOS_ICD9-SE"
     icd: "ICD-9"
     lang: "sv"
