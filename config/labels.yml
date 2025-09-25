@@ -34,6 +34,12 @@ labels:
         replace: '9'
     label_column: "KODTEXT"
 
+  - source: "SOS_ICD8-SE"
+    icd: "ICD-8"
+    lang: "sv"
+    code_column: "Kod"
+    label_column: "Text"
+
 sources:
   SOS_ICD10-SE:
     title: "Socialstyrelsen ICD-10-SE"
@@ -57,3 +63,14 @@ sources:
     license: "Unknown"
     notes: >
       Official Swedish classification ICD-9-SE. The original version of ICD-9-SE used letters instead of digits after the decimal point (A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, W=8, X=9).
+
+  SOS_ICD8-SE:
+    title: "Socialstyrelsen ICD-8-SE"
+    publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
+    path: "data/icd-8-se.xls"
+    reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/icd-8-klassifikation-av-sjukdomar-mm-1968.xls"
+    doi: ""
+    version: ""
+    retrieved_at: "2025-09-23"
+    license: "Unknown"
+    notes: "Official Swedish classification ICD-8-SE."
