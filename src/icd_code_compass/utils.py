@@ -41,8 +41,8 @@ def normalize_icd(code: Optional[str]) -> Optional[str]:
 
 def read(path: str,
          sheet: Union[int, str] = 0,
-         no_header: bool = False,
-         delimiter: str= None,
+         header: List[str] = None,
+         delimiter: str = None,
          encoding: str = "utf-8") -> pd.DataFrame:
     """
     Read a CSV or Excel file into a pandas DataFrame with all values as strings.
@@ -51,10 +51,8 @@ def read(path: str,
     ----------
     path : str
         Path or URL to the input file.
-    no_header : bool
-        If True, treat the file as having no header row and let pandas
-        assign default integer column names. If False, use the first row
-        as column headers.
+    headers : List[str]
+        Use as column names. If None, use the first row as column headers.
     delimiter : str
         Delimiter to use for CSV files. If None, pandas will try to
         infer the delimiter automatically.
@@ -70,24 +68,29 @@ def read(path: str,
         column names are stripped of surrounding whitespace.
     """
     parsed = urlparse(path)
-    header_arg = None if no_header else 0
     
+    header_row = 0 if header is None else None
+
     # Pick file extension
     ext = Path(parsed.path).suffix.lower()
     if ext in {".xlsx", ".xls"}:
-        df = pd.read_excel(path, sheet_name=sheet, dtype=str, header=header_arg)
+        df = pd.read_excel(path,
+                           sheet_name=sheet,
+                           dtype=str,
+                           header=header_row,
+                           names=header)
     else:
         df = pd.read_csv(path,
                          sep=delimiter,
                          dtype=str,
                          encoding=encoding,
-                         header=header_arg,
+                         header=header_row,
+                         names=header,
                          engine="python",
                          escapechar="\\")
 
-    # Normalize column names only if we actually read a header row
-    if not no_header:
-        df.columns = [str(c).strip() for c in df.columns]
+    # Normalize column names
+    df.columns = [str(c).strip() for c in df.columns]
 
     df = df.where(df.notna(), None)
     return df
