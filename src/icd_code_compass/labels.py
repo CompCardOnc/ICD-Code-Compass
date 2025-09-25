@@ -11,6 +11,7 @@ Row = Dict[str, Optional[str]]
 def read_labels(path: str,
                 code_column: Union[int, str],
                 label_column: Union[int, str],
+                header: List[str] = None,
                 filter: str = None,
                 delimiter: str = None,
                 sheet: Union[int, str] = 0,
@@ -32,10 +33,12 @@ def read_labels(path: str,
     ----------
     path : str
         Path to the input file (CSV, TSV, Excel, etc.).
-    code_column : int or str
-        Column index or column name containing the ICD codes.
+    code_column : str
+        Name of column containing the ICD codes.
     label_column : int or str
-        Column index or column name containing the labels.
+        Name of column containing the labels.
+    header : List[str], optional
+        List with column names. If None, first line is assumed to be the header.
     filter : str, optional
         Regex pattern to filter codes; only matching codes are included.
     delimiter : str, optional
@@ -52,21 +55,15 @@ def read_labels(path: str,
         - "code"  : normalized ICD code
         - "label" : corresponding label (non-null)
     """
-    # If either selector is positional, assume the file has no header row
-    no_header = isinstance(code_column, int) or isinstance(label_column, int)
-    
     df = read(path=path,
-              no_header=no_header,
+              header=header,
               delimiter=delimiter,
               sheet=sheet,
               encoding=encoding)
-    
-    code_col = resolve(df, code_column)
-    label_col = resolve(df, label_column)
-    
+
     # Rename columns
-    df = df.rename(columns={code_col: "code"})
-    df = df.rename(columns={label_col: "label"})
+    df = df.rename(columns={code_column: "code"})
+    df = df.rename(columns={label_column: "label"})
 
     # Normalize codes
     df["code"] = df["code"].apply(normalize_icd)
@@ -135,6 +132,7 @@ def main():
             sheet=l.get("sheet", 0),
             encoding=l.get("encoding", "utf8"),
             filter=l.get("filter"),
+            header=l.get("header"),
             code_column=l["code_column"],
             label_column=l["label_column"])
 

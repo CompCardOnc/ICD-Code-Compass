@@ -52,8 +52,9 @@ labels:
     icd: "ICD-10"
     lang: "en"
     delimiter: "\t"
-    code_column: 0
-    label_column: 1
+    header: ["Code", "Label"]
+    code_column: "Code"
+    label_column: "Label"
 
   - source: "EJE_ICD8-ICD10"
     icd: "ICD-8"
@@ -105,7 +106,6 @@ sources:
     version: "2018"
     retrieved_at: "2025-09-25"
     license: "Public domain"
-    language: "English"
     notes: "Provides English ICD labels for ICD-10-CM."
 
   EJE_ICD8-ICD10:
