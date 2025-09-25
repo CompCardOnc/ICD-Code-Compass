@@ -40,6 +40,13 @@ labels:
     code_column: "Kod"
     label_column: "Text"
 
+  - source: "KAGGLE_ICD10-CM"
+    icd: "ICD-10"
+    lang: "en"
+    delimiter: ","
+    code_column: 2
+    label_column: 4
+
 sources:
   SOS_ICD10-SE:
     title: "Socialstyrelsen ICD-10-SE"
@@ -74,3 +81,14 @@ sources:
     retrieved_at: "2025-09-23"
     license: "Unknown"
     notes: "Official Swedish classification ICD-8-SE."
+
+  KAGGLE_ICD10-CM:
+    title: "Kaggle ICD-10-CM"
+    publisher: "https://www.kaggle.com/"
+    path: "data/icd-10-cm.csv"
+    reference: "https://www.kaggle.com/datasets/arashnic/icd10-codes-and-descriptions"
+    doi: ""
+    version: "2024-01-21"
+    retrieved_at: "2025-09-23"
+    license: "CC0: Public Domain"
+    notes: "ICD10 codes and descriptions"
