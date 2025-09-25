@@ -51,7 +51,7 @@ sources:
   SOS_ICD10-SE:
     title: "Socialstyrelsen ICD-10-SE"
     publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
-    path: "data/icd-10-se.tsv"
+    path: "data/SOS_ICD10-SE.tsv"
     reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/icd-10-se.tsv"
     doi: ""
     version: "2024-12-09"
@@ -62,7 +62,7 @@ sources:
   SOS_ICD9-SE:
     title: "Socialstyrelsen ICD-9-SE"
     publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
-    path: "data/icd-9-se.xls"
+    path: "data/SOS_ICD9-SE.xls"
     reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/icd-9-klassifikation-av-sjukdomar-1987-ks87.xls"
     doi: ""
     version: ""
@@ -74,7 +74,7 @@ sources:
   SOS_ICD8-SE:
     title: "Socialstyrelsen ICD-8-SE"
     publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
-    path: "data/icd-8-se.xls"
+    path: "data/SOS_ICD8-SE.xls"
     reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/icd-8-klassifikation-av-sjukdomar-mm-1968.xls"
     doi: ""
     version: ""
@@ -85,7 +85,7 @@ sources:
   KAGGLE_ICD10-CM:
     title: "Kaggle ICD-10-CM"
     publisher: "https://www.kaggle.com/"
-    path: "data/icd-10-cm.csv"
+    path: "data/KAGGLE_ICD10-CM.csv"
     reference: "https://www.kaggle.com/datasets/arashnic/icd10-codes-and-descriptions"
     doi: ""
     version: "2024-01-21"
