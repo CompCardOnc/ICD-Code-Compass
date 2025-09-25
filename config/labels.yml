@@ -1,4 +1,12 @@
 labels:
+  - source: "SOS_ICD10-SE"
+    icd: "ICD-10"
+    lang: "sv"
+    delimiter: "\t"
+    filter: "^[A-Z]"
+    code_column: "Kod"
+    label_column: "Titel"
+
   - source: "SOS_ICD9-SE"
     icd: "ICD-9"
     lang: "sv"
@@ -27,6 +35,17 @@ labels:
     label_column: "KODTEXT"
 
 sources:
+  SOS_ICD10-SE:
+    title: "Socialstyrelsen ICD-10-SE"
+    publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
+    path: "data/icd-10-se.tsv"
+    reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/icd-10-se.tsv"
+    doi: ""
+    version: "2024-12-09"
+    retrieved_at: "2025-09-23"
+    license: "Unknown"
+    notes: "Official Swedish classification ICD-10-SE, valid from 2025-01-01"
+
   SOS_ICD9-SE:
     title: "Socialstyrelsen ICD-9-SE"
     publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"

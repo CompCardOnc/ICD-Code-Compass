@@ -77,7 +77,13 @@ def read(path: str,
     if ext in {".xlsx", ".xls"}:
         df = pd.read_excel(path, sheet_name=sheet, dtype=str, header=header_arg)
     else:
-        df = pd.read_csv(path, sep=delimiter, dtype=str, encoding=encoding, header=header_arg, engine="python")
+        df = pd.read_csv(path,
+                         sep=delimiter,
+                         dtype=str,
+                         encoding=encoding,
+                         header=header_arg,
+                         engine="python",
+                         escapechar="\\")
 
     # Normalize column names only if we actually read a header row
     if not no_header:
