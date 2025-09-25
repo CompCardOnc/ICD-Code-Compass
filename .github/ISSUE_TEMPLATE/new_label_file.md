@@ -1,14 +1,14 @@
 ---
-name: "New labels file"
-about: Suggest adding a new ICD labels file to ICD-Code-Compass
-title: "[DATA] New labels file: <Unique ID>"
+name: "New label file"
+about: Suggest adding a new ICD label file to ICD-Code-Compass
+title: "[DATA] New label file: <Unique ID>"
 labels: enhancement, data
 ---
 
 ## Label file suggestion
 
 **ID:** `Unique ID of data source, e.g. SOS_ICD-9-SE`  
-**Title:** `Long title of the labels file`
+**Title:** `Long title of the label file`
 **Publisher:** `Organization, paper, or authority providing the file`
 **Reference:** `Official source URL if available, else leave blank` 
 **DOI:** `DOI if available, else leave blank`
