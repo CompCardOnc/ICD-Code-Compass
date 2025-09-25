@@ -19,6 +19,15 @@ mappings:
     attributes:
       - flags
 
+  - source: "CDC_ICD10-ICD9"
+    header: ["ICD-10", "ICD-9", "flags"]
+    from_icd: "ICD-10"
+    from_column: "ICD-10"
+    to_icd: "ICD-9"
+    to_column: "ICD-9"
+    attributes:
+      - flags
+
   - source: "EJE_ICD8-ICD10"
     from_icd: "ICD-8"
     from_column: "ICD8_CODE"
@@ -61,6 +70,27 @@ sources:
     license: "Public domain"
     notes: >
       ICD mappings from ICD-9-CM to ICD-10-CM using General Equivalence Mappings (GEMs). Each mapping row has a 5-character flag string. Reading left to right, each digit represents a property of the mapping:
+
+      Approximate: 0 = exact, 1 = approximate.
+      No Map: 0 = has map, 1 = no map exists.
+      Combination: = single code, 1 = part of multi-code combo.
+      Scenario: digit groups alternate mapping scenarios (0-9).
+      Choice List: digit distinguishes codes within a scenario (0-9).
+      Example: 10012 → Approximate | Has map | Not combo | Scenario 1 | Choice 2.
+
+      See https://ftp.cdc.gov/pub/health_statistics/nchs/publications/ICD10CM/2018/Dxgem_guide_2018.pdf
+
+  CDC_ICD10-ICD9:
+    title: "Diagnosis code set with General Equivalence Mappings (GEMs) for ICD-10-CM to ICD-9-CM conversion"
+    publisher: "https://cdc.gov/"
+    path: "data/CDC_ICD10-ICD9.txt"
+    reference: "https://ftp.cdc.gov/pub/health_statistics/nchs/publications/ICD10CM/2018/2018-ICD-10-CM-Codes-File.zip (2018_I10gem.txt)"
+    doi: ""
+    version: "2018"
+    retrieved_at: "2025-09-25"
+    license: "Public domain"
+    notes: >
+      ICD mappings from ICD-10-CM to ICD-9-CM using General Equivalence Mappings (GEMs). Each mapping row has a 5-character flag string. Reading left to right, each digit represents a property of the mapping:
 
       Approximate: 0 = exact, 1 = approximate.
       No Map: 0 = has map, 1 = no map exists.
