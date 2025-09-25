@@ -10,6 +10,15 @@ mappings:
       - R1
       - R2
 
+  - source: "CDC_ICD9-ICD10"
+    header: ["ICD-9", "ICD-10", "flags"]
+    from_icd: "ICD-9"
+    from_column: "ICD-9"
+    to_icd: "ICD-10"
+    to_column: "ICD-10"
+    attributes:
+      - flags
+
   - source: "EJE_ICD8-ICD10"
     from_icd: "ICD-8"
     from_column: "ICD8_CODE"
@@ -40,3 +49,24 @@ sources:
     retrieved_at: "2025-09-25"
     license: "Creative Commons Attribution 4.0 International License"
     notes: "Mapping scores: 1 (a straightforward match, 2 (a good match), 3 (an acceptable match), and 5 (the best possible match, poor quality match). Difficult matches flagged with one or more of seven flags (A-G) highlighting the mapping problem."
+
+  CDC_ICD9-ICD10:
+    title: "Diagnosis code set with General Equivalence Mappings (GEMs) for ICD-9-CM to ICD-10-CM conversion"
+    publisher: "https://cdc.gov/"
+    path: "data/CDC_ICD9-ICD10.txt"
+    reference: "https://ftp.cdc.gov/pub/health_statistics/nchs/publications/ICD10CM/2018/2018-ICD-10-CM-Codes-File.zip (2018_I9gem.txt)"
+    doi: ""
+    version: "2018"
+    retrieved_at: "2025-09-25"
+    license: "Public domain"
+    notes: >
+      ICD mappings from ICD-9-CM to ICD-10-CM using General Equivalence Mappings (GEMs). Each mapping row has a 5-character flag string. Reading left to right, each digit represents a property of the mapping:
+
+      Approximate: 0 = exact, 1 = approximate.
+      No Map: 0 = has map, 1 = no map exists.
+      Combination: = single code, 1 = part of multi-code combo.
+      Scenario: digit groups alternate mapping scenarios (0-9).
+      Choice List: digit distinguishes codes within a scenario (0-9).
+      Example: 10012 → Approximate | Has map | Not combo | Scenario 1 | Choice 2.
+
+      See https://ftp.cdc.gov/pub/health_statistics/nchs/publications/ICD10CM/2018/Dxgem_guide_2018.pdf

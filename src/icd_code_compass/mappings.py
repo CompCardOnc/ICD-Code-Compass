@@ -7,6 +7,7 @@ from utils import *
 def read_mappings(path: str,
                   from_column: Union[int, str],
                   to_column: Union[int, str],
+                  header: List[str] = None,
                   attributes: List[str] = [],
                   delimiter: str = None,
                   sheet: Union[int, str] = 0,
@@ -27,9 +28,11 @@ def read_mappings(path: str,
     path : str
         Path or URL to the CSV or Excel file.
     from_column : int or str
-        Column index (int) or column name (str) for the source code.
+        Name of column for the source code.
     to_column : int or str
-        Column index (int) or column name (str) for the target code.
+        Name of column for the target code.
+    header : List[str], optional
+        List with column names. If None, first line is assumed to be the header.
     attributes : list of str, , default []
         Additional columns to include in the output.
     delimiter : str, default None
@@ -57,22 +60,16 @@ def read_mappings(path: str,
         If a column index is out of range.
     """
     
-    # If either selector is positional, assume the file has no header row
-    no_header = isinstance(from_column, int) or isinstance(to_column, int)
-    
     df = read(path=path,
-              no_header=no_header,
+              header=header,
               delimiter=delimiter,
               sheet=sheet,
               encoding=encoding)
-
-    from_col = resolve(df, from_column)
-    to_col = resolve(df, to_column)
     
     # Rename columns
     df = df.rename(columns={
-        from_col: "from_code",
-        to_col: "to_code"
+        from_column: "from_code",
+        to_column: "to_code"
     })
     
     # Normalize codes
@@ -196,6 +193,7 @@ def main():
             path = source["path"],
             from_column = m["from_column"],
             to_column = m["to_column"],
+            header = m.get("header"),
             attributes = m.get("attributes", []),
             delimiter = m.get("delimiter", None),
             sheet = m.get("sheet", 0),
