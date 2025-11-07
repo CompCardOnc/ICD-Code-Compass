@@ -1,3 +1,6 @@
+# Run tests using:
+# PYTHONPATH=src pytest tests/test_utils.py -q
+
 from pathlib import Path
 import pandas as pd
 import pytest
