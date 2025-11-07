@@ -1,0 +1,10 @@
+mappings:
+  - config/mappings/SOS_ICD9-ICD10.yml
+  - config/mappings/CDC_ICD9-ICD10.yml
+  - config/mappings/CDC_ICD10-ICD9.yml
+  - config/mappings/EJE_ICD8-ICD10.yml
+sources:
+  - config/sources/SOS_ICD9-ICD10.yml
+  - config/sources/CDC_ICD9-ICD10.yml
+  - config/sources/CDC_ICD10-ICD9.yml
+  - config/sources/EJE_ICD8-ICD10.yml

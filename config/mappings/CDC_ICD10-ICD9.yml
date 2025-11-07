@@ -1,0 +1,7 @@
+source: "CDC_ICD10-ICD9"
+header: ["ICD-10", "ICD-9", "flags"]
+from_icd: "ICD-10"
+from_column: "ICD-10"
+to_icd: "ICD-9"
+to_column: "ICD-9"
+attributes: ["flags"]
