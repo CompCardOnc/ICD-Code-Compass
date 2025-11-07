@@ -154,7 +154,7 @@ def main():
     Command-line Arguments
     ----------------------
     --config : File path
-        Path to the YAML config file that defines sources and mappings.
+        Path to the YAML registry file that defines sources and mappings.
     --output : File path
         Path where the output JSON file will be written.
     """
@@ -167,7 +167,7 @@ def main():
                         type=Path,
                         required=True,
                         default=argparse.SUPPRESS,
-                        help="Path to the config file")
+                        help="Path to the registry file")
     parser.add_argument("--output",
                         type=Path,
                         required=True,
@@ -177,35 +177,43 @@ def main():
     args = parser.parse_args()
     config = load_yaml(args.config)
     
-    sources = config["sources"]
-    mappings = config["mappings"]
+    # Load sources
+    sources = {}
+    for filename in config["sources"]:
+        source = load_yaml(filename)
+        sources[source["id"]] = source
     
-    data = {
-        "sources": sources,
-        "mappings": []
-    }
+    # Mappings
+    mappings = []
 
-    for m in mappings:
-        source = sources[m["source"]]
+    # Load mappings
+    mapping_files = []
+    for filename in config["mappings"]:
+        mapping_file = load_yaml(filename)
+        mapping_files.append(mapping_file)
+
+    # Process mappings
+    for mapping_file in mapping_files:
+        source = sources[mapping_file["source"]]
 
         # read rows from file
         df = read_mappings(
             path = source["path"],
-            from_column = m["from_column"],
-            to_column = m["to_column"],
-            header = m.get("header"),
-            attributes = m.get("attributes", []),
-            delimiter = m.get("delimiter", None),
-            sheet = m.get("sheet", 0),
-            encoding = m.get("encoding", "utf8"))
+            from_column = mapping_file["from_column"],
+            to_column = mapping_file["to_column"],
+            header = mapping_file.get("header"),
+            attributes = mapping_file.get("attributes", []),
+            delimiter = mapping_file.get("delimiter", None),
+            sheet = mapping_file.get("sheet", 0),
+            encoding = mapping_file.get("encoding", "utf8"))
 
-        df["source"] = m["source"]
-        df["from_icd"] = m["from_icd"]
-        df["to_icd"] = m["to_icd"]
-        data["mappings"].extend(df.to_dict("records"))
+        df["source"] = mapping_file["source"]
+        df["from_icd"] = mapping_file["from_icd"]
+        df["to_icd"] = mapping_file["to_icd"]
+        mappings.extend(df.to_dict("records"))
 
     # write to file
-    write_compact_json(args.output, data)
+    write_compact_json(args.output, {"sources": sources, "mappings": mappings})
 
 
 if __name__ == "__main__":
