@@ -65,12 +65,12 @@ pip install -r requirements.txt
 ## Running scripts
 To generate a new mappings file, run:
 ```bash
-python3 scripts/generate-mappings.sh
+./scripts/generate-mappings.sh
 ```
 
 To generate a new labels file, run:
 ```bash
-python3 scripts/generate-labels.sh
+./scripts/generate-labels.sh
 ```
 
 ---
