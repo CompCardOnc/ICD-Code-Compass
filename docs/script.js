@@ -201,9 +201,21 @@ async function loadTable(){
     });
 }
 
+// Get shorter ICD code
+function shortenICD(str) {
+  const parts = str.split('-');
+  if (parts.length > 2) {
+    parts.pop(); // remove last segment
+  }
+  return parts.join('-');
+}
+
 // Get text label for code
 function getLabel(icd, code){
-    let label = labels?.[icd]?.[code]?.[LANG] ?? labels?.[icd]?.[code]?.[FALLBACK_LANG];
+    let label = labels?.[icd]?.[code]?.[LANG] ??
+                labels?.[icd]?.[code]?.[FALLBACK_LANG] ??
+                labels?.[shortenICD(icd)]?.[code]?.[LANG] ??
+                labels?.[shortenICD(icd)]?.[code]?.[FALLBACK_LANG];
     return label;
 }
 
