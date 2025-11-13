@@ -1,19 +1,14 @@
 // Global vars
 let table;
-let lang = 'en';
 let labels;
 let mappings;
 
+let LANG = 'en';
+const FALLBACK_LANG = 'la'
 const LANGUAGES = [
     { code: 'en', label: 'English (EN)' },
     { code: 'la', label: 'Latin (LA)' },
-    { code: 'sv', label: 'Svenska (SV)' },
-    { code: 'de', label: 'Deutsch (DE)' },
-    { code: 'fr', label: 'Français (FR)' },
-    { code: 'es', label: 'Español (ES)' },
-    { code: 'it', label: 'Italiano (IT)' },
-    { code: 'pt', label: 'Português (PT)' },
-    { code: 'nl', label: 'Nederlands (NL)' },
+    { code: 'sv', label: 'Svenska (SV)' }
 ];
 
 async function main(){
@@ -21,7 +16,7 @@ async function main(){
     window.addEventListener('resize', debounce(() => table.redraw(true)));
 
     // Dowload buttons
-    document.getElementById('download-csv').addEventListener('click', () => table.download('csv', 'data.csv'));
+    document.getElementById('download-csv').addEventListener('click', () => table.download('csv', 'data.tsv', { delimiter: '\t' }));
     document.getElementById('download-json').addEventListener('click', () => table.downloadToTab('json', 'data.json'));
     document.getElementById('download-xlsx').addEventListener('click', () => table.download('xlsx', 'data.xlsx'));
 
@@ -54,10 +49,10 @@ async function loadTable(){
         let row = {
             fromIcd: m.from_icd,
             fromCode: m.from_code,
-            fromLabel: getLabel(m.from_icd, m.from_code, lang),
+            fromLabel: getLabel(m.from_icd, m.from_code),
             toIcd: m.to_icd,
             toCode: m.to_code,
-            toLabel: getLabel(m.to_icd, m.to_code, lang),
+            toLabel: getLabel(m.to_icd, m.to_code),
             source: m.source,
             attributes: m?.attributes
                 ? Object.entries(m.attributes)
@@ -207,8 +202,9 @@ async function loadTable(){
 }
 
 // Get text label for code
-function getLabel(icd, code, lang){
-    return labels.labels?.[icd]?.[code]?.[lang];
+function getLabel(icd, code){
+    let label = labels?.[icd]?.[code]?.[LANG] ?? labels?.[icd]?.[code]?.[FALLBACK_LANG];
+    return label;
 }
 
 // Abbreviate to international ICD standard
@@ -267,7 +263,7 @@ function applyHeaderFiltersFromURL() {
     });
 }
 
-// Init lanugage selector
+// Init language selector
 function initLanguageSelector() {
     const dropdownBtn = document.getElementById('language-dropdown');
     const menu = document.getElementById('language-menu');
