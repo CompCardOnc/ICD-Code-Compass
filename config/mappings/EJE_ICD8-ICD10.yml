@@ -1,6 +1,6 @@
 source: "EJE_ICD8-ICD10"
-from_icd: "ICD-8"
+from_icd: "ICD-8-DK"
 from_column: "ICD8_CODE"
-to_icd: "ICD-10"
+to_icd: "ICD-10-DK"
 to_column: "ICD10_CODE"
 attributes: ["MAPPING_SCORE", "MAPPING_FLAG"]

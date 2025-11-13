@@ -1,7 +1,7 @@
 source: "SOS_ICD9-ICD10"
 sheet: 1
-from_icd: "ICD-9"
+from_icd: "ICD-9-SE"
 from_column: "ICD-9"
-to_icd: "ICD-10"
+to_icd: "ICD-10-SE"
 to_column: "ICD-10"
 attributes: ["R", "R1", "R2"]
