@@ -1,5 +1,5 @@
 id: "SOS_ICD9-ICD10"
-title: "Socialstyrelsen ICD-9 to ICD-10 conversion table"
+title: "Socialstyrelsen ICD-9-SE to ICD-10-SE conversion table"
 publisher: "Socialstyrelsen (Swedish National Board of Health and Welfare)"
 path: "data/SOS_ICD9-ICD10.xls"
 reference: "https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/klassifikationer-och-koder/konverteringstabell-icd9-icd10-forklaring-exempel.xls"
