@@ -1,7 +1,7 @@
 ---
 name: "Feature request"
 about: Suggest a new idea or enhancement for ICD-Code-Compass
-title: "[FEAT] Short description"
+title: "[FEATURE] Short description"
 labels: enhancement
 ---
 
@@ -12,10 +12,4 @@ labels: enhancement
 <!-- Why is this feature useful? What problem does it solve? -->
 
 ## Proposed solution
-<!-- How you imagine it could work. Add examples, images, or links if relevant. -->
-
-## Alternatives considered
-<!-- Have you thought of other approaches? Why is this one better? -->
-
-## Additional context
-<!-- Add any other context, mockups, or references to existing work. -->
+<!-- Do you have any idea about how it could work? Add examples, images, or links if relevant. -->
