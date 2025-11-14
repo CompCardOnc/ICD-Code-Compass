@@ -95,7 +95,7 @@ async function loadTable(){
         sortMode: 'multi',
         columnDefaults: {
             headerFilter: 'input',
-            widthGrow: 0
+            widthGrow: 1
         },
         columns: [
             {
@@ -114,19 +114,28 @@ async function loadTable(){
                             valuesLookup: true,
                             sortValuesList: 'asc',
                             multiselect: true
-                        }
-                    },
-                    {
-                        title: 'Code',
-                        field: 'fromCode',
-                        titleDownload: 'fromCode',
-                        headerFilterFunc: 'starts'
+                        },
+                        width: 70
                     },
                     {
                         title: 'Version',
                         field: 'fromVersion',
                         titleDownload: 'fromVersion',
-                        headerFilterFunc: 'starts'
+                        headerFilter: 'list',
+                        headerFilterFunc: 'in',
+                        headerFilterParams: {
+                            valuesLookup: true,
+                            sortValuesList: 'asc',
+                            multiselect: true
+                        },
+                        width: 90
+                    },
+                    {
+                        title: 'Code',
+                        field: 'fromCode',
+                        titleDownload: 'fromCode',
+                        headerFilterFunc: 'starts',
+                        width: 70
                     },
                     {
                         title: 'Label',
@@ -155,19 +164,28 @@ async function loadTable(){
                             valuesLookup: true,
                             sortValuesList: 'asc',
                             multiselect: true
-                        }
-                    },
-                    {
-                        title: 'Code',
-                        field: 'toCode',
-                        titleDownload: 'toCode',
-                        headerFilterFunc: 'starts'
+                        },
+                        width: 70
                     },
                     {
                         title: 'Version',
                         field: 'toVersion',
                         titleDownload: 'toVersion',
-                        headerFilterFunc: 'starts'
+                        headerFilter: 'list',
+                        headerFilterFunc: 'in',
+                        headerFilterParams: {
+                            valuesLookup: true,
+                            sortValuesList: 'asc',
+                            multiselect: true
+                        },
+                        width: 90
+                    },
+                    {
+                        title: 'Code',
+                        field: 'toCode',
+                        titleDownload: 'toCode',
+                        headerFilterFunc: 'starts',
+                        width: 70
                     },
                     {
                         title: 'Label',
@@ -197,13 +215,14 @@ async function loadTable(){
                             valuesLookup: true,
                             sortValuesList: 'asc',
                             multiselect: true
-                        }
+                        },
+                        width: 140
                     },
                     {
                         title: 'Attributes',
                         field: 'attributes',
                         titleDownload: 'attributes',
-                        widthGrow: 1
+                        width: 90
                     },
                     {
                         title: 'Notes',
