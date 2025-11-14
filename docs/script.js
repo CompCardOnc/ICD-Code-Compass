@@ -11,6 +11,15 @@ const LANGUAGES = [
     { code: 'sv', label: 'Svenska (SV)' }
 ];
 
+const TOGGLABLE_COLUMNS = [
+  { fields: ['fromLabel', 'toLabel'],     title: 'Labels' },
+  { fields: ['fromVersion', 'toVersion'], title: 'ICD Versions' },
+  { fields: ['attributes'],               title: 'Attributes' },
+  { fields: ['notes'],                    title: 'Notes' },
+  { fields: ['source'],                   title: 'Source' }
+];
+
+
 async function main(){
     // Add listener to support table resizing
     window.addEventListener('resize', debounce(() => table.redraw(true)));
@@ -41,16 +50,26 @@ async function loadMappings() {
     mappings = await response.json();
 }
 
+// Toggle column visibility
+function toggleColumnVisibility(field, show) {
+    const col = table.getColumn(field);
+    if (!col) return;
+    show ? col.show() : col.hide();
+    table.redraw(true);
+}
+
 // Load table
 async function loadTable(){
     const tabledata = [];
     for(let m of mappings['mappings']){
         let source = mappings['sources'][m.source];
         let row = {
-            fromIcd: m.from_icd,
+            fromIcd: shortenICD(m.from_icd),
+            fromVersion: m.from_icd,
             fromCode: m.from_code,
             fromLabel: getLabel(m.from_icd, m.from_code),
-            toIcd: m.to_icd,
+            toIcd: shortenICD(m.to_icd),
+            toVersion: m.to_icd,
             toCode: m.to_code,
             toLabel: getLabel(m.to_icd, m.to_code),
             source: m.source,
@@ -104,6 +123,12 @@ async function loadTable(){
                         headerFilterFunc: 'starts'
                     },
                     {
+                        title: 'Version',
+                        field: 'fromVersion',
+                        titleDownload: 'fromVersion',
+                        headerFilterFunc: 'starts'
+                    },
+                    {
                         title: 'Label',
                         field: 'fromLabel',
                         widthGrow: 2,
@@ -136,6 +161,12 @@ async function loadTable(){
                         title: 'Code',
                         field: 'toCode',
                         titleDownload: 'toCode',
+                        headerFilterFunc: 'starts'
+                    },
+                    {
+                        title: 'Version',
+                        field: 'toVersion',
+                        titleDownload: 'toVersion',
                         headerFilterFunc: 'starts'
                     },
                     {
@@ -280,7 +311,7 @@ function initLanguageSelector() {
     const dropdownBtn = document.getElementById('language-dropdown');
     const menu = document.getElementById('language-menu');
 
-    // Build menu
+    // Build language dropdown
     menu.innerHTML = '';
     LANGUAGES.forEach(({ code, label }) => {
         const li = document.createElement('li');
@@ -291,13 +322,52 @@ function initLanguageSelector() {
         a.textContent = label;
         a.addEventListener('click', (e) => {
             e.preventDefault();
-            lang = code;
+            LANG = code;
             dropdownBtn.textContent = label
             loadTable();
         });
         li.appendChild(a);
         menu.appendChild(li);
     });
+
+    // Build column dropdown
+    const columnsList = document.getElementById('columns-list');
+    columnsList.innerHTML = '';
+    TOGGLABLE_COLUMNS.forEach(({ fields, title }, idx) => {
+        const wrapper = document.createElement('label');
+        wrapper.className = 'form-check d-flex align-items-center justify-content-between gap-2';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'form-check-input';
+        checkbox.dataset.fields = fields;
+        checkbox.checked = true; // visible by default
+
+        // Assign an id so a <label> can correctly point to it
+        const id = `toggle-col-${idx}`;
+        checkbox.id = id;
+
+        const span = document.createElement('span');
+        span.textContent = title;
+        span.htmlFor = id;
+        span.className = 'form-check-label flex-grow-1';
+
+        wrapper.appendChild(checkbox);
+        wrapper.appendChild(span);
+        columnsList.appendChild(wrapper);
+
+        checkbox.addEventListener('change', () => {
+            fields.forEach(field  => {
+                const col = table.getColumn(field);
+                toggleColumnVisibility(field, checkbox.checked);
+            });
+        });
+    });
+
+    // Prevent column dropdown from closing
+    document
+        .getElementById('columns-menu')
+        .addEventListener('click', (e) => e.stopPropagation());
 }
 
 // Run main
