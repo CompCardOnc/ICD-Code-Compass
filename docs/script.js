@@ -4,7 +4,7 @@ let labels;
 let mappings;
 
 let LANG = 'en';
-const FALLBACK_LANG = 'la'
+const FALLBACK_LANG = 'en'
 const LANGUAGES = [
     { code: 'en', label: 'English (EN)' },
     { code: 'la', label: 'Latin (LA)' },
